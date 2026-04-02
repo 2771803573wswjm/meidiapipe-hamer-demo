@@ -18,23 +18,8 @@
 - `mediapipe_model/hand_landmarker.task`
 - `prepare_assets.py`
 
-## 2. 仓库里不建议直接提交什么
 
-下面这些不建议直接放进 GitHub 仓库：
-
-- `downloads/_DATA/hamer_ckpts/checkpoints/hamer.ckpt`
-  - 体积太大，本地大约 `2.6G`
-- `downloads/_DATA/data/mano/...`
-  - 这类 MANO 资源通常也不建议直接公开提交
-- 任何你自己的测试视频和输出结果
-
-所以更推荐的方案是：
-
-- GitHub 仓库只放代码和轻量模型
-- 用 `prepare_assets.py` 把用户已有资源复制到正确位置
-- 或者你后面把大权重单独放在 release / 网盘 / 私有资源路径，再让用户下载后执行同一个准备命令
-
-## 3. 目录约定
+## 2. 目录约定
 
 运行前，项目根目录下建议准备成下面这样：
 
@@ -58,7 +43,7 @@ Hamer+mediapipe/
 └── ...
 ```
 
-## 4. 资源准备
+## 3. 资源准备
 
 如果你本机已经有原项目的 `downloads`，最简单：
 
@@ -78,7 +63,7 @@ python prepare_assets.py \
 
 这个脚本会把需要的目录和文件复制到当前项目自己的 `downloads/` 下。
 
-## 5. 输出内容
+## 4. 输出内容
 
 每个视频都会生成：
 
@@ -93,7 +78,7 @@ python prepare_assets.py \
 - `*_summary.json`
   - 整段视频的汇总信息
 
-## 6. 每帧 JSON 里的关键字段
+## 5. 每帧 JSON 里的关键字段
 
 - `candidates`
   - 当前帧手框、左右手标签、`track_id`
@@ -110,7 +95,7 @@ python prepare_assets.py \
 - `render.hands[*].mano.betas`
   - MANO 形状参数
 
-## 7. 推荐命令行参数
+## 6. 推荐命令行参数
 
 最常用的参数建议固定成这几个：
 
@@ -159,7 +144,7 @@ CUDA_VISIBLE_DEVICES=0 python run_video_demo.py \
   --mediapipe_model "mediapipe_model/hand_landmarker.task"
 ```
 
-## 8. 说明
+## 7. 说明
 
 - 视频版当前更建议 `--no_mediapipe_auto_handedness`
   - 因为视频序列通常更适合直接信 `MediaPipe` 的左右手，再配合时序平滑
